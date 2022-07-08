@@ -1,6 +1,6 @@
 import grafosPY as g
 
-def DFS (origen,marca = {},padre = {}):
+def DFS (origen,marca,padre):
     marca[origen.obtenerId()]="Gris"
     for v in origen.obtenerConexiones():
         if marca.get(v.obtenerId())=="Blanco":
@@ -9,8 +9,9 @@ def DFS (origen,marca = {},padre = {}):
     marca[origen.obtenerId()]="Negro"
 
 def DFS_Forest(G,marca,padre):
-    for vertice in G.obtenerVertices():
+    for vertice in G.obtenerVertices(): #llena el diccionario de marcas y el de padres con el estado inicial (Blanco, Vacio)
         marca[vertice] = "Blanco"
+        padre[vertice] = None
     for vertice in G.obtenerVertices():
         if marca.get(G.obtenerVertice(vertice).obtenerId())=="Blanco":
             DFS(G.obtenerVertice(vertice),marca,padre)
@@ -37,10 +38,8 @@ if '__main__' == __name__:
     padre = {}
     marca = {}
 
-    for vertice in G.obtenerVertices():
-        padre[vertice] = None
-
     DFS_Forest(G,marca=marca,padre=padre)
 
 
     print(padre)
+    print(marca)
